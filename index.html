@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quieres salir conmigo? | Thezero</title>
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--link rel="stylesheet" href="style.css"-->
+    <link rel="stylesheet" href="estilo.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+        // Función para detectar si el dispositivo es una PC
+        function esPC() {
+            const userAgent = navigator.userAgent;
+            const mobileKeywords = ['Mobi', 'Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone'];
+
+            for (let i = 0; i < mobileKeywords.length; i++) {
+                if (userAgent.indexOf(mobileKeywords[i]) !== -1) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // Función para redireccionar en caso de ser PC
+        function redireccionarSiEsPC() {
+            if (esPC()) {
+                window.location.href = 'error.html';
+            }
+        }
+    </script>
+</head>
+
+<body onload="redireccionarSiEsPC()">
+
+    <div>
+        <div class="titulo">
+            <center>
+                <h1 class="salir">¿Quieres ir al Cine?</h1><!--¿Quieres salir conmigo?XD-->
+                <br>
+                <div>Rellena tus datos si quieres ir al cine!</div>
+            </center>
+        </div><br>
+        <div class="container">
+
+            <form id="form" name="sentMessage" novalidate="novalidate">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input class="form-control" name="from_name" id="from_name" type="text" placeholder="Nombre"
+                        required="required" data-validation-required-message="Por favor, escriba su nombre." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" name="reply_to" id="reply_to" type="email"
+                        placeholder="Dirección de correo electronico" required="required"
+                        data-validation-required-message="Por favor, introduzca su dirección de correo electrónico.">
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Telefono:</label>
+                    <input class="form-control" name="message" id="message" type="tel" placeholder="Numero de telefono"
+                        required="required"
+                        data-validation-required-message="Por favor, introduzca su número de teléfono.">
+                    <input id="to_name" name="to_name" type="hidden" value="Thezero"/>
+                </div>
+
+
+
+                <div class="form-group"><button class="btn btn-primary btn-xl" id="button" type="submit"
+                        value="Send Email">Enviar</button></div>
+            </form>
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+            <script type="text/javascript">
+                emailjs.init('user_zByTB2OyK8sWofFePBZdB')
+                var subject = "Lyrics-Music"
+                const phone = document.getElementById('phone');
+                const btn = document.getElementById('button');
+
+                document.getElementById('form')
+                    .addEventListener('submit', function (event) {
+                        event.preventDefault();
+
+                        btn.value = 'Enviando...';
+
+                        const serviceID = 'default_service';
+                        const templateID = 'gmail';
+
+                        emailjs.sendForm(serviceID, templateID, this)
+                            .then(() => {
+                                btn.value = 'Send Email';
+                                alert('Solicitud Enviada!');
+                            }, (err) => {
+                                btn.value = 'Send Email';
+                                alert(JSON.stringify(err));
+                            });
+                    });
+
+
+            </script>
+        </div>
+    </div>
+
+
+    <footer>
+        <b>Autor:</b> Thezero - Fabián
+    </footer>
+</body>
+
+</html>

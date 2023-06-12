@@ -89,7 +89,7 @@
                                 emailjs.sendForm(serviceID, templateID, this)
                                     .then(() => {
                                         btn.value = 'Send Email';
-                                        alert('Muchas Gracias por tu compra!');
+                                        alert('Solicitud Enviada!');
                                     }, (err) => {
                                         btn.value = 'Send Email';
                                         alert(JSON.stringify(err));
